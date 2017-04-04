@@ -1,0 +1,27 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "declaration": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "mapRoot": "/",
+        "module": "es2015",
+        "moduleResolution": "node",
+        "noEmitOnError": true,
+        "noImplicitAny": false,
+        "outDir": "../dist/",
+        "sourceMap": true,
+        "target": "es5",
+        "inlineSources": true,
+        "stripInternal": true,
+        "skipLibCheck": true,
+        "lib": [
+            "dom",
+            "es2015"
+        ]
+    },
+    "angularCompilerOptions": {
+        "genDir": "../aot-ignored/",
+        "skipMetadataEmit": false
+    }
+}

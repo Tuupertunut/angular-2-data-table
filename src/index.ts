@@ -1,31 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+export {DataTableModule} from "./data-table.module";
+export {DataTableComponent} from "./components/data-table.component";
+export {ColumnDirective} from "./components/column.directive";
+export {RowComponent} from "./components/row.component";
+export {PaginationComponent} from "./components/pagination.component";
+export {HeaderComponent} from "./components/header.component";
 
-import { DataTable} from './components/table.component';
-import { DataTableColumn } from './components/column.component';
-import { DataTableRow } from './components/row.component';
-import { DataTablePagination } from './components/pagination.component';
-import { DataTableHeader } from './components/header.component';
+export {RowCallback, CellCallback, DataTableParams, DataTableTranslations, defaultTranslations} from "./components/types";
 
-import { PixelConverter } from './utils/px';
-import { Hide } from './utils/hide';
-import { MinPipe } from './utils/min';
-
-export * from './components/types';
-export * from './tools/data-table-resource';
-
-export { DataTable, DataTableColumn, DataTableRow, DataTablePagination, DataTableHeader };
-export const DATA_TABLE_DIRECTIVES = [ DataTable, DataTableColumn ];
-
-
-@NgModule({
-    imports: [ CommonModule, FormsModule ],
-    declarations: [
-        DataTable, DataTableColumn,
-        DataTableRow, DataTablePagination, DataTableHeader,
-        PixelConverter, Hide, MinPipe
-    ],
-    exports: [ DataTable, DataTableColumn ]
-})
-export class DataTableModule { }
+export {DataSource} from "./tools/data-source";
+export {ArrayDataSource} from "./tools/array-data-source";

@@ -1,12 +1,11 @@
-import { Directive, Input, ContentChild, OnInit } from '@angular/core';
-import { DataTableRow } from './row.component';
-import { CellCallback } from './types';
-
+import {Directive, Input, ContentChild, OnInit} from "@angular/core";
+import {RowComponent} from "./row.component";
+import {CellCallback} from "./types";
 
 @Directive({
-  selector: 'data-table-column'
+    selector: 'data-table-column'
 })
-export class DataTableColumn implements OnInit {
+export class ColumnDirective implements OnInit {
 
     // init:
     @Input() header: string;
@@ -23,7 +22,7 @@ export class DataTableColumn implements OnInit {
     @ContentChild('dataTableCell') cellTemplate;
     @ContentChild('dataTableHeader') headerTemplate;
 
-    getCellColor(row: DataTableRow, index: number) {
+    getCellColor(row: RowComponent, index: number) {
         if (this.cellColors !== undefined) {
             return (<CellCallback>this.cellColors)(row.item, row, this, index);
         }

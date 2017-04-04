@@ -1,4 +1,5 @@
 /dist
+/aot-ignored
 /tmp
 /node_modules
 /.idea

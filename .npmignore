@@ -1,5 +1,6 @@
-
+/aot-ignored
 /tmp
 /node_modules
 /.idea
 /typings
+npm-debug.log

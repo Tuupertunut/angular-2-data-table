@@ -1,12 +1,12 @@
-import { DataTableRow } from './row.component';
-import { DataTableColumn } from './column.component';
+import {RowComponent} from "./row.component";
+import {ColumnDirective} from "./column.directive";
 
 
-export type RowCallback = (item: any, row: DataTableRow, index: number) => string;
+export type RowCallback = (item: any, row: RowComponent, index: number) => string;
 
-export type CellCallback = (item: any, row: DataTableRow, column: DataTableColumn, index: number) => string;
+export type CellCallback = (item: any, row: RowComponent, column: ColumnDirective, index: number) => string;
 
-// export type HeaderCallback = (column: DataTableColumn) => string;
+// export type HeaderCallback = (column: ColumnDirective) => string;
 
 
 export interface DataTableTranslations {
@@ -17,7 +17,7 @@ export interface DataTableTranslations {
     paginationRange: string;
 }
 
-export var defaultTranslations = <DataTableTranslations>{
+export const defaultTranslations = <DataTableTranslations>{
     indexColumn: 'index',
     selectColumn: 'select',
     expandColumn: 'expand',
