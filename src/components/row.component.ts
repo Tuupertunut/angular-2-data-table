@@ -1,12 +1,13 @@
 import {Component, EventEmitter, forwardRef, Inject, Input, OnDestroy, Output} from "@angular/core";
 import {DataTableComponent} from "./data-table.component";
+import {ColumnDirective} from "./column.directive";
 
 @Component({
     selector: "[dataTableRow]",
     template: `
         <tr class="data-table-row"
             [title]="getTooltip()"
-            [style.background-color]="dataTable.getRowColor(item, index, _this)"
+            [ngClass]="getRowNgClass()"
             [class.row-odd]="index % 2 === 0"
             [class.row-even]="index % 2 === 1"
             [class.selected]="selected"
@@ -22,8 +23,8 @@ import {DataTableComponent} from "./data-table.component";
             <td [hide]="!dataTable.selectColumnVisible" class="select-column">
                 <input type="checkbox" [(ngModel)]="selected"/>
             </td>
-            <td *ngFor="let column of dataTable.columns" [hide]="!column.visible" [ngClass]="column.styleClassObject" class="data-column"
-                [style.background-color]="column.getCellColor(_this, index)">
+            <td *ngFor="let column of dataTable.columns" [hide]="!column.visible" class="data-column"
+                [ngClass]="getCellNgClass(column)">
                 <div *ngIf="!column.cellTemplate" [textContent]="item[column.property]"></div>
                 <div *ngIf="column.cellTemplate" [ngTemplateOutlet]="column.cellTemplate" [ngOutletContext]="{column: column, row: _this, item: item}"></div>
             </td>
@@ -86,6 +87,30 @@ export class RowComponent implements OnDestroy {
             return this.dataTable.rowTooltip(this.item, this, this.index);
         }
         return "";
+    }
+
+    getRowNgClass(): string {
+        let newClass: string = this.dataTable.getRowClass(this);
+        if (newClass != undefined) {
+            return newClass;
+        } else {
+            return "default-row-style";
+        }
+    }
+
+    getCellNgClass(column: ColumnDirective): string[] {
+        let classes: string[] = [];
+
+        if (column.styleClass != undefined) {
+            classes.push(column.styleClass);
+        }
+
+        let newClass: string = column.getCellClass(this);
+        if (newClass != undefined) {
+            classes.push(newClass);
+        }
+
+        return classes;
     }
 
     constructor(@Inject(forwardRef(() => DataTableComponent)) public dataTable: DataTableComponent) {

@@ -25,7 +25,7 @@ import {Observable} from "rxjs";
                             </th>
                             <th *ngFor="let column of columns" #th [hide]="!column.visible" (click)="headerClicked(column, $event)"
                                 [class.sortable]="column.sortable" [class.resizable]="column.resizable"
-                                [ngClass]="column.styleClassObject" class="column-header" [style.width]="column.width | px">
+                                [ngClass]="column.styleClass" class="column-header" [style.width]="column.width | px">
                                 <span *ngIf="!column.headerTemplate" [textContent]="column.header"></span>
                                 <span *ngIf="column.headerTemplate" [ngTemplateOutlet]="column.headerTemplate" [ngOutletContext]="{column: column}"></span>
                                 <span class="column-sort-icon" *ngIf="column.sortable">
@@ -77,15 +77,15 @@ import {Observable} from "rxjs";
         }
 
         /* I can't use the bootstrap striped table, because of the expandable rows */
-        :host /deep/ .row-odd {
+        :host /deep/ .data-table-row.default-row-style.row-odd {
             background-color: #F6F6F6;
         }
 
-        :host /deep/ .row-even {
+        :host /deep/ .data-table-row.default-row-style.row-even {
         }
 
         .data-table .substitute-rows > tr:hover,
-        :host /deep/ .data-table .data-table-row:hover {
+        :host /deep/ .data-table .data-table-row.default-row-style:hover {
             background-color: #ECECEC;
         }
 
@@ -187,7 +187,7 @@ export class DataTableComponent implements DataTableParams, OnInit {
     @Input() pagination = true;
     @Input() indexColumn = true;
     @Input() indexColumnHeader = "";
-    @Input() rowColors: RowCallback;
+    @Input() rowClasses: RowCallback;
     @Input() rowTooltip: RowCallback;
     @Input() selectColumn = false;
     @Input() multiSelect = true;
@@ -380,14 +380,14 @@ export class DataTableComponent implements DataTableParams, OnInit {
     @Output() headerClick = new EventEmitter();
     @Output() cellClick = new EventEmitter();
 
-    private rowClicked(row: RowComponent, event) {
+    rowClicked(row: RowComponent, event) {
         this.rowClick.emit({
             row,
             event
         });
     }
 
-    private rowDoubleClicked(row: RowComponent, event) {
+    rowDoubleClicked(row: RowComponent, event) {
         this.rowDoubleClick.emit({
             row,
             event
@@ -405,7 +405,7 @@ export class DataTableComponent implements DataTableParams, OnInit {
         }
     }
 
-    private cellClicked(column: ColumnDirective, row: RowComponent, event: MouseEvent) {
+    cellClicked(column: ColumnDirective, row: RowComponent, event: MouseEvent) {
         this.cellClick.emit({
             row,
             column,
@@ -447,9 +447,9 @@ export class DataTableComponent implements DataTableParams, OnInit {
         return count;
     }
 
-    private getRowColor(item: any, index: number, row: RowComponent) {
-        if (this.rowColors !== undefined) {
-            return (<RowCallback>this.rowColors)(item, row, index);
+    getRowClass(row: RowComponent) {
+        if (this.rowClasses !== undefined) {
+            return (<RowCallback>this.rowClasses)(row.item, row, row.index);
         }
     }
 
