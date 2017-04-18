@@ -44,13 +44,15 @@ import {Observable} from "rxjs";
                     </tbody>
                     <tbody class="substitute-rows" *ngIf="pagination && substituteRows">
                         <tr *ngFor="let item of substituteItems, let index = index"
+                            class="substitute-row"
+                            [ngClass]="getSubstituteRowNgClass(index + items.length)"
                             [class.row-odd]="(index + items.length) % 2 === 0"
                             [class.row-even]="(index + items.length) % 2 === 1"
                         >
                             <td [hide]="!expandColumnVisible"></td>
                             <td [hide]="!indexColumnVisible">&nbsp;</td>
                             <td [hide]="!selectColumnVisible"></td>
-                            <td *ngFor="let column of columns" [hide]="!column.visible">
+                            <td *ngFor="let column of columns" [hide]="!column.visible" [ngClass]="column.getSubstituteCellNgClass(index + items.length)">
                         </tr>
                     </tbody>
                 </table>
@@ -84,7 +86,7 @@ import {Observable} from "rxjs";
         :host /deep/ .data-table-row.default-row-style.row-even {
         }
 
-        .data-table .substitute-rows > tr:hover,
+        .data-table .substitute-row.default-row-style:hover,
         :host /deep/ .data-table .data-table-row.default-row-style:hover {
             background-color: #ECECEC;
         }
@@ -191,7 +193,7 @@ export class DataTableComponent implements DataTableParams, OnInit {
     @Input() rowTooltip: RowCallback;
     @Input() selectColumn = false;
     @Input() multiSelect = true;
-    @Input() substituteRows = true;
+    @Input() substituteRows = false;
     @Input() expandColumn = false;
     @Input() translations: DataTableTranslations = defaultTranslations;
     @Input() selectOnRowClick = false;
@@ -447,9 +449,27 @@ export class DataTableComponent implements DataTableParams, OnInit {
         return count;
     }
 
-    getRowClass(row: RowComponent) {
+    getRowClass(item: any, row: RowComponent, index: number): string {
         if (this.rowClasses !== undefined) {
-            return (<RowCallback>this.rowClasses)(row.item, row, row.index);
+            return (<RowCallback>this.rowClasses)(item, row, index);
+        }
+    }
+
+    getRowNgClass(row: RowComponent): string {
+        let newClass: string = this.getRowClass(row.item, row, row.index);
+        if (newClass != undefined) {
+            return newClass;
+        } else {
+            return "default-row-style";
+        }
+    }
+
+    getSubstituteRowNgClass(index: number): string {
+        let newClass: string = this.getRowClass(null, null, index);
+        if (newClass != undefined) {
+            return newClass;
+        } else {
+            return "default-row-style";
         }
     }
 

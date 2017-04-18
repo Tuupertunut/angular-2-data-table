@@ -22,10 +22,40 @@ export class ColumnDirective implements OnInit {
     @ContentChild("dataTableCell") cellTemplate;
     @ContentChild("dataTableHeader") headerTemplate;
 
-    getCellClass(row: RowComponent) {
+    getCellClass(item: any, row: RowComponent, index: number): string {
         if (this.cellClasses !== undefined) {
-            return (<CellCallback>this.cellClasses)(row.item, row, this, row.index);
+            return (<CellCallback>this.cellClasses)(item, row, this, index);
         }
+    }
+
+    getCellNgClass(row: RowComponent): string[] {
+        let classes: string[] = [];
+
+        if (this.styleClass != undefined) {
+            classes.push(this.styleClass);
+        }
+
+        let newClass: string = this.getCellClass(row.item, row, row.index);
+        if (newClass != undefined) {
+            classes.push(newClass);
+        }
+
+        return classes;
+    }
+
+    getSubstituteCellNgClass(index: number): string[] {
+        let classes: string[] = [];
+
+        if (this.styleClass != undefined) {
+            classes.push(this.styleClass);
+        }
+
+        let newClass: string = this.getCellClass(null, null, index);
+        if (newClass != undefined) {
+            classes.push(newClass);
+        }
+
+        return classes;
     }
 
     ngOnInit() {
