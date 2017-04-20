@@ -4,7 +4,6 @@ import {RowComponent} from "./row.component";
 import {DataTableParams, DataTableTranslations, defaultTranslations, RowCallback} from "./types";
 import {drag} from "../utils/drag";
 import {DataSource} from "../tools/data-source";
-import {Observable} from "rxjs";
 
 @Component({
     selector: "data-table",
@@ -322,8 +321,9 @@ export class DataTableComponent implements DataTableParams, OnInit {
 
         if (this._dataSource != undefined) {
 
-            /* Combining two observables to wait until both emit a value. Both values are then stored together in the "value" array. */
-            Observable.zip(this._dataSource.getAvailableRowCount(), this._dataSource.queryData(params)).subscribe((value: [number, any[]]) => {
+            /* This Observable emits a pair of availableRowCount and items. Both values are stored together in the
+             * "value" array. */
+            this._dataSource.queryData(params).subscribe((value: [number, any[]]) => {
                 this.availableRowCount = value[0];
                 this.items = value[1];
 

@@ -13,8 +13,8 @@ export class ArrayDataSource<T> implements DataSource<T> {
         this.customSortFunctions = (customSortFunctions != undefined) ? customSortFunctions : new Map();
     }
 
-    queryData(params: DataTableParams): Observable<T[]> {
-        return Observable.create((observer: Observer<T[]>) => {
+    queryData(params: DataTableParams): Observable<[number, T[]]> {
+        return Observable.create((observer: Observer<[number, T[]]>) => {
 
             let sortBy: string = params.sortBy; //May be undefined
             let sortAsc: boolean = (params.sortAsc != undefined) ? params.sortAsc : true;
@@ -38,16 +38,7 @@ export class ArrayDataSource<T> implements DataSource<T> {
 
             array = array.slice(offset, offset + limit);
 
-            observer.next(array);
-            observer.complete();
-        });
-
-    }
-
-    getAvailableRowCount(): Observable<number> {
-        return Observable.create((observer: Observer<number>) => {
-
-            observer.next(this.array.length);
+            observer.next([this.array.length, array]);
             observer.complete();
         });
     }
