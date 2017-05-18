@@ -5,8 +5,8 @@ function isBlank(obj: any): boolean {
 }
 
 @Directive({
-    selector: '[hide]',
-    inputs: ['hide']
+    selector: "[hide]",
+    inputs: ["hide"]
 })
 export class HideDirective {
 
@@ -21,17 +21,17 @@ export class HideDirective {
 
         if (newCondition && (isBlank(this._prevCondition) || !this._prevCondition)) {
             this._prevCondition = true;
-            this._renderer.setElementStyle(this._elementRef.nativeElement, 'display', 'none');
+            this._renderer.setElementStyle(this._elementRef.nativeElement, "display", "none");
         } else if (!newCondition && (isBlank(this._prevCondition) || this._prevCondition)) {
             this._prevCondition = false;
-            this._renderer.setElementStyle(this._elementRef.nativeElement, 'display', this._displayStyle);
+            this._renderer.setElementStyle(this._elementRef.nativeElement, "display", this._displayStyle);
         }
     }
 
     private initDisplayStyle() {
         if (this._displayStyle === undefined) {
             let displayStyle = this._elementRef.nativeElement.style.display;
-            if (displayStyle && displayStyle !== 'none') {
+            if (displayStyle && displayStyle !== "none") {
                 this._displayStyle = displayStyle;
             }
         }

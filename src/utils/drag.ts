@@ -27,14 +27,14 @@ export function drag(event: MouseEvent, {move: move, up: up}: {move: MoveHandler
         x = event.pageX;
         y = event.pageY;
 
-        document.removeEventListener('mousemove', mouseMoveHandler);
-        document.removeEventListener('mouseup', mouseUpHandler);
+        document.removeEventListener("mousemove", mouseMoveHandler);
+        document.removeEventListener("mouseup", mouseUpHandler);
 
         if (up) {
             up(event, x, y, moved);
         }
     }
 
-    document.addEventListener('mousemove', mouseMoveHandler);
-    document.addEventListener('mouseup', mouseUpHandler);
+    document.addEventListener("mousemove", mouseMoveHandler);
+    document.addEventListener("mouseup", mouseUpHandler);
 }

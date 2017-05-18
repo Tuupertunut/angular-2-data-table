@@ -1,7 +1,7 @@
 import {Pipe, PipeTransform} from "@angular/core";
 
 @Pipe({
-    name: 'px'
+    name: "px"
 })
 export class PixelConverterPipe implements PipeTransform {
 
@@ -9,11 +9,11 @@ export class PixelConverterPipe implements PipeTransform {
         if (value === undefined) {
             return;
         }
-        if (typeof value === 'string') {
+        if (typeof value === "string") {
             return value;
         }
-        if (typeof value === 'number') {
-            return value + 'px';
+        if (typeof value === "number") {
+            return value + "px";
         }
     }
 }

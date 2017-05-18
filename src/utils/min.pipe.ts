@@ -1,7 +1,7 @@
 import {Pipe, PipeTransform} from "@angular/core";
 
 @Pipe({
-    name: 'min'
+    name: "min"
 })
 export class MinPipe implements PipeTransform {
 
