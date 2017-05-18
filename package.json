@@ -1,6 +1,6 @@
 {
     "name": "@tuupertunut/angular-2-data-table",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "description": "An Angular 2 data table, with pagination, sorting, expandable rows etc.",
     "keywords": [
         "angular",
@@ -15,17 +15,16 @@
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
     "scripts": {
-        "build": "rimraf dist/ && ngc -p src/",
-        "prepublish": "npm run build"
+        "build": "rimraf dist/ && ngc -p src/"
     },
     "repository": {
         "type": "git",
-        "url": "git://git@github.com/ggmod/angular-2-data-table.git"
+        "url": "https://github.com/Tuupertunut/angular-2-data-table.git"
     },
     "peerDependencies": {
         "@angular/core": "^2.0.0"
     },
-    "author": "ggmod <ggmod64@gmail.com>",
+    "author": "Tuupertunut",
     "license": "MIT",
     "devDependencies": {
         "@angular/common": "^2.4.0",
