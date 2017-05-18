@@ -10,6 +10,7 @@ import {DataSource} from "../tools/data-source";
     template: `
         <div class="data-table-wrapper">
             <data-table-header *ngIf="header"></data-table-header>
+            <data-table-pagination *ngIf="pagination && paginatorAbove"></data-table-pagination>
 
             <div class="data-table-box">
                 <table class="table table-condensed table-bordered data-table">
@@ -58,7 +59,7 @@ import {DataSource} from "../tools/data-source";
                 <div class="loading-cover" *ngIf="showReloading && reloading"></div>
             </div>
 
-            <data-table-pagination *ngIf="pagination"></data-table-pagination>
+            <data-table-pagination *ngIf="pagination && paginatorBelow"></data-table-pagination>
         </div>
     `,
     styles: [`
@@ -199,6 +200,8 @@ export class DataTableComponent implements DataTableParams, OnInit {
     @Input() expandOnRowClick = false;
     @Input() autoReload = true;
     @Input() showReloading = false;
+    @Input() paginatorAbove = true;
+    @Input() paginatorBelow = true;
 
     // UI state without input:
 

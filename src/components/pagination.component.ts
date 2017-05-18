@@ -53,7 +53,6 @@ import {DataTableComponent} from "./data-table.component";
     styles: [`
         .pagination-box {
             position: relative;
-            margin-top: -10px;
         }
 
         .pagination-range {
@@ -83,7 +82,7 @@ import {DataTableComponent} from "./data-table.component";
         }
 
         .pagination-page {
-            width: 110px;
+            width: 150px;
             display: inline-table;
         }
 
